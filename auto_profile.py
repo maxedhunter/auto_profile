@@ -53,8 +53,8 @@ class AutoProfile:
 
         variables = {
             "profile_name":f"nstep{value}_r{replicate}.prof",
-            "script_file":os.path.join(path, self.config['files']['script_file_relative_to_template']),
-            "input_file":os.path.join(path, self.config['files']['input_file_relative_to_template']),
+            "script_module":os.path.join(path, self.config['files']['script_module_relative_to_template']),
+            "input_file":os.path.join(self.config['files']['input_file_relative_to_template']),
             "output_file":f"nstep{value}_r{replicate}.out", 
             "outputs":self.config['files']['outputs'],
             "working_dir":path,
@@ -73,6 +73,11 @@ class AutoProfile:
                 raise TypeError(f"Error formatting command '{cmd}': {e}")
 
         print(slurm)
+
+    @staticmethod
+    def path_to_module(filepath):
+        module_name = os.path.splitext(filepath)[0].replace(os.path.sep, '.')
+        return module_name
 
 if __name__ == "__main__":
     auto_profile = AutoProfile()

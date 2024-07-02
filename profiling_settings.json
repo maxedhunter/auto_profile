@@ -1,29 +1,28 @@
 {
     "runs": {
-        "replicates": 5,
+        "replicates": 3,
         "values": [1, 2]
     },
     "files": {
-        "root_dir": "example/path",
-        "template_dir": "example/path/template", 
-        "input_file_relative_to_template": "relative_path/input.txt",
-        "input_search_term": "n_steps",
-        "script_module_relative_to_template": "relative_path.script",
-        "outputs": "example/path/profile_outputs"
+        "root_dir": "/usr/example/example_root_dir",
+        "template_dir": "/usr/example/some_template", 
+        "input_file_relative_to_template": "inputs/config.txt",
+	"config_file_relative_to_template":"inputs/additional_config.txt",
+        "config_search_term": "n_steps",
+        "script_module_relative_to_template": "scripts.run_script",
+        "outputs": "/usr/example/some_example_output"
     }, 
     "slurm":{
-        "time": "48:00:00",
-        "account": "swanson",
-        "partition": "lonepeak",
-        "nodes": 1
+        "time": "00:00:00",
+        "account": "some-slurm-account",
+        "partition": "example-cpu",
+	"ntasks": 1
     },
-    "conda_env": "msrkm",
+    "conda_env": "my-conda-env",
     "slurm_commands": [
         "module load miniconda3",
-        "conda run -n \"conda_env\" python -m cProfile -o \"{profile_name}\" -m \"{script_module}\" \"{input_file}\" >> \"{output_file}\"",
+        "conda run -n \"{conda_env}\" python -m cProfile -o \"{profile_name}\" -m \"{script_module}\" \"{input_file}\" >> \"{output_file}\"",
         "cp \"{profile_name}\" \"{outputs}\"",
-        "cp \"{output_file}\" \"{outputs}\"",
-        "rm \"{working_dir}\""
-    ],
-    "analyze_profiles":false
+        "cp \"{output_file}\" \"{outputs}\""
+    ]
 }

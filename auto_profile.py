@@ -1,7 +1,8 @@
-import json
 import argparse
-import shutil
+import json
 import os
+import shutil
+from typing import Dict, Any
 from simple_slurm import Slurm
 
 class AutoProfile:
@@ -11,7 +12,7 @@ class AutoProfile:
         self.template_dir = self.config['files']['template_dir']
         
     @staticmethod
-    def load_config(config_json_file: str) -> dict:
+    def load_config(config_json_file: str) -> Dict[str, Any]:
         with open(config_json_file, 'r') as f:
             config = json.load(f)
         return config
